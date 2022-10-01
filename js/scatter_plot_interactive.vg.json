@@ -1,0 +1,92 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 600,
+    "title": "Michelin Star Restaurants",
+    "data": {
+      "url": "https://raw.githubusercontent.com/eddiechen1/data_vis_1/main/data/michelin-restaurants.csv"
+    },
+    "params": [
+      {
+        "name": "star_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            1,
+            2,
+            3
+          ],
+          "labels": [
+            "Show All",
+            "One Star",
+            "Two Stars",
+            "Three Stars"
+          ],
+          "name": "Michelin Star Selection: "
+        }
+      }
+    ],
+    "transform": [
+      {
+        "filter": "star_selection == null || datum.stars == star_selection"
+      },
+      {
+        "calculate": "datum.stars",
+        "as": "Michelin Stars"
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "latitude",
+        "type": "quantitative",
+        "title": "Latitude",
+        "axis": {"tickCount": 7},
+        "scale": {"domain": [-30, 65]}
+      },
+      "y": {
+        "field": "longitude",
+        "type": "quantitative",
+        "axis": {"tickCount": 6},
+        "scale": {"domain": [-130, 130]}
+      }
+    },
+    "layer": [
+      {
+        "mark": "circle",
+        "encoding": {
+          "size": {
+            "field": "stars",
+            "type": "ordinal",
+            "scale": {
+              "type": "point",
+              "domain": [1, 2, 3],
+              "range": [50, 500]
+            },
+            "legend": {"format": ".0f"}
+          },
+          "color": {
+            "field": "region",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Austria", "California", "Chicago", "Croatia", "Czech Republic", "Denmark", "Finland", "Greece", "Hong Kong", "Hungary",
+              "Macau", "Norway", "New York", "Poland", "Ireland", "Rio de Janeiro", "Sao Paulo", "South Korea", "Singapore", "Sweden", "Taipei",
+          "Thailand", "Washington DC", "United Kingdon"]
+            }
+          },
+          "opacity": {"value": 0.6},
+          "tooltip": [
+            {"field": "name", "type": "nominal"},
+            {"field": "region", "type": "nominal"},
+            {"field": "latitude", "type": "quantitative", "format": ","},
+            {"field": "longitude", "type": "quantitative", "format": ","},
+            {
+              "field": "Michelin Stars",
+              "type": "quantitative",
+              "format": ".2f"
+            }
+          ]
+        }
+      }
+    ]
+  }
