@@ -87,6 +87,33 @@
             }
           ]
         }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "middle",
+          "dx": -12,
+          "fontSize": 11.5,
+          "fontStyle": "bold"
+        },
+        "encoding": {
+          "text": {"field": "name", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['name'] == 'Gaon' || datum['name'] == 'Alinea' || datum['name'] == 'Shin Sushi' || datum['name'] == 'KOKS' || datum['name'] == 'Jade Dragon' || datum['name'] == 'Les Amis' ||  datum['name'] == 'Oro'",
+              "value": 1
+            },
+            "value": 0
+          },
+          "tooltip": [
+            {"field": "name", "type": "nominal"},
+            {"field": "region", "type": "nominal"},
+            {"field": "latitude", "type": "quantitative", "format": ","},
+            {"field": "longitude", "type": "quantitative", "format": ","}
+          ]
+        }
       }
     ]
   }
